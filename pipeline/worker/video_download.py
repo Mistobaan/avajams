@@ -47,6 +47,8 @@ def convert_embed_url_and_download(embed_url):
 
   response = urllib2.urlopen('http://www.clipconverter.cc/check.php', timeout=20, data=data).read()
   response = json.loads(response)
+  print response['url']
+
   if response.get('redirect'):
     raise Exception("Captcha validation requested |{}|".format(response))
   try:

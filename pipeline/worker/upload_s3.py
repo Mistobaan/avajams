@@ -13,7 +13,7 @@ def upload_s3(filename):
 
     try:
         conn.head_object(Bucket=bucket_name, Key=filename)
-        return
+        return 
     except Exception,e:
         # Not found
         print e
