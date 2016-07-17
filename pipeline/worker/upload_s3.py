@@ -5,7 +5,7 @@ import sys
 from boto.s3.key import Key
 import os
 
-def upload_s3(filename):
+def file_exists_s3(filename):
     bucket_name = "avajams"
     conn = boto.connect_s3()
 
@@ -13,10 +13,19 @@ def upload_s3(filename):
 
     try:
         conn.head_object(Bucket=bucket_name, Key=filename)
-        return 
+        return True 
     except Exception,e:
         # Not found
-        print e
+        return False
+
+def upload_s3(filename):
+    bucket_name = "avajams"
+    conn = boto.connect_s3()
+
+    bucket = conn.create_bucket(bucket_name, location=boto.s3.connection.Location.DEFAULT)
+
+    if file_exists_s3(filename):
+        return
 
     k = Key(bucket)
     k.key = os.path.split(filename)[-1]
