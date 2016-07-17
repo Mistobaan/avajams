@@ -16,9 +16,10 @@ def extract_images(video_file_name):
     logger.info("extracting: %s", video_file_name)
     output_path = video_file_name.replace('.mp4', '')
     try:
-        os.mkdirs(output_path)
-    except:
-        pass
+        os.mkdir(output_path)
+    except Exception,e:
+        print e
+
     for i in xrange(1, NIMAGES+1):
         command = """ffmpeg -y -accurate_seek -ss `echo {i}*1.0 | \
                      bc` -i {video} -frames:v 1 -vf "crop=in_h,scale={scale}:-1" \

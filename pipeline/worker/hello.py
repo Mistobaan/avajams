@@ -26,7 +26,11 @@ DTcDUQxQ', 'https://www.youtube.com/embed/nntGTK2Fhb0', 'http://www.youtube.com/
 tube.com/embed/BUULBlDcju4', 'https://www.youtube.com/embed/UQ13nr6urIo', 'www.youtube.com/embed/3xUfCUFPL-8', 'www.youtube.com/embed/Mq-aVCUs2Q0', 'http://www.youtube.com/embed/ph7oZnBH05s', 'http://www\
 .youtube.com/embed/42Tah0DCubg']
 for url in url_list:
-    downloaded_file_path = convert_embed_url_and_download(url)
+    try:
+        downloaded_file_path = convert_embed_url_and_download(url)
+    except Exception,e:
+        print e
+        continue
     print "download file path:", downloaded_file_path 
 
     upload_s3(downloaded_file_path)
