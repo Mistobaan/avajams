@@ -25,14 +25,12 @@ def main():
         except Exception,e:
             logger.error("could not download file: %s", e)
             return
-        logger.info("uploading %s to %s", url, downloaded_file_path, "https://s3.amazonaws.com/avajams/"+video_file_name)
+        logger.info("uploading %s to %s", downloaded_file_path, "https://s3.amazonaws.com/avajams/"+video_file_name)
         upload_s3(downloaded_file_path)
         logger.info("task complete")
     else:
         logger.info("file already downloaded")
         #images = extract_images(downloaded_file_path)
-
-    print 'Here is the task_id: %s' %  IronWorker.task_id()
 
 if __name__ == '__main__':
     main()

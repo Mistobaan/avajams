@@ -15,6 +15,7 @@ SCALE = 100
 def extract_images(video_file_name):
     logger.info("extracting: %s", video_file_name)
     output_path = video_file_name.replace('.mp4', '')
+    print output_path
     try:
         os.mkdir(output_path)
     except Exception,e:
@@ -27,12 +28,18 @@ def extract_images(video_file_name):
                                                 scale=SCALE,
                                                 video=video_file_name,
                                                 folder=output_path)
-        subprocess.call(command, shell=True)
+        print command
+        returncode = subprocess.call(command, shell=True)
+        if returncode != 0:
+            return
 
     command = """ffmpeg -y -i {video} -b:a 192K -vn {folder}/audio.mp3""".format(i=i,
                                                video=video_file_name,
                                                folder=output_path)
-    subprocess.call(command, shell=True)
+    returncode =  subprocess.call(command, shell=True)
+    if returncode != 0:
+        return
+
     logger.info("done!")
 
 if __name__ == '__main__':
@@ -46,4 +53,4 @@ if __name__ == '__main__':
         lines = fin.readlines()
 
     for line in lines:
-        extract_images(line)
+        extract_images(line.strip())
