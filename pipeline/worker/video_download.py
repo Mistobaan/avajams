@@ -18,7 +18,10 @@ def download_file(url, video_id):
   print video_id 
   content = urlopen(url).read()
   fpath = os.path.join(os.environ['PROJECT_ROOT'], "data") 
-  os.makedirs(fpath)
+  try:
+    os.makedirs(fpath)
+  except:
+    pass
   fname = os.path.join(fpath, "video_" + video_id+'.mp4')
   print fname
   f = open(fname, 'wb')

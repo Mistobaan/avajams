@@ -100,10 +100,10 @@ WORKDIR /usr/local/
 RUN rm -rf /usr/local/src
 RUN apt-get autoremove -y; apt-get clean -y
 
+RUN apt-get update
+RUN apt-get install bc
+
 WORKDIR /app
 ADD . /app
 
-RUN apt-get install bc
-
-# RUN python ./image_extract.py ./data/test_video.mp4
 ENTRYPOINT ["python", "hello.py"]
